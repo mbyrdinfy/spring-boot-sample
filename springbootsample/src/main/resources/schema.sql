@@ -1,0 +1,6 @@
+CREATE TABLE EMPLOYEE(
+	empID INT,
+	name  VARCHAR,
+	email VARCHAR,
+	PRIMARY KEY(empID)
+	);
