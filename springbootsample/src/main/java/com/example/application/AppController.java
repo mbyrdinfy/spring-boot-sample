@@ -20,29 +20,58 @@ public class AppController {
 
 	@RequestMapping(value = "/newEmployee", method= RequestMethod.PUT)
 	public ResponseEntity<Integer> createEmp(@RequestBody Employee emp) {
-		
-		Integer setEmpID = employeeService.createEmployee(emp);
+		Integer setEmpID = 0;
+		try {
+		setEmpID = employeeService.createEmployee(emp);
 		return new ResponseEntity<Integer>(setEmpID, HttpStatus.OK);
+		
+		} catch(Exception e) {
+			return new ResponseEntity<Integer>(setEmpID, HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@RequestMapping(value = "/getEmployee/{empID}", method= RequestMethod.GET)
 	public ResponseEntity<Employee> getEmp(@PathVariable Integer empID) {
-		Employee emp = employeeService.getEmployee(empID);
+		Employee emp = new Employee();
+		
+		try {
+		emp = employeeService.getEmployee(empID);
 		return new ResponseEntity<Employee>(emp, HttpStatus.OK);
+		} catch(Exception e) {
+			System.out.println(e.getMessage() + e.getClass());
+			return new ResponseEntity<Employee>(emp, HttpStatus.BAD_REQUEST);
+		}
 	}
+
 	
 	@RequestMapping(value = "/updateEmployee", method = RequestMethod.POST)
 	public ResponseEntity<Integer> updateEmp(@RequestBody Employee emp){
+		Integer setEmpID = 0;
 		
-		Integer setEmpID = employeeService.updateEmployee(emp);
+		try {
+		setEmpID = employeeService.updateEmployee(emp);
 		return new ResponseEntity<Integer>(setEmpID, HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<Integer>(setEmpID, HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@RequestMapping(value = "/deleteEmployee/{empID}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteEmp(@PathVariable Integer empID){
+		String deleteResponse = "delete failed";
 		
-		String deleteResponse = employeeService.deleteEmployee(empID);
+		try {
+		deleteResponse = employeeService.deleteEmployee(empID);
 		return new ResponseEntity<String>(deleteResponse, HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<String>(deleteResponse, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+
+	@RequestMapping(value = "/getTest", method= RequestMethod.GET)
+	public ResponseEntity<String> testGet() {
+		return new ResponseEntity<String>("Success!", HttpStatus.OK);
 	}
 		
 	

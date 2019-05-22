@@ -18,14 +18,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @EntityScan(basePackages = "com.example.entity")
-@ComponentScan(basePackages = "com.example.dao com.example.service com.example.utility")
+@ComponentScan(basePackages = "com.example.dao com.example.service com.example.utility com.example.validator")
 public class SpringConfig {
 
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:file:~/test;DB_CLOSE_ON_EXIT=FALSE");
+        dataSource.setUrl("jdbc:h2:mem:testdb");
         dataSource.setUsername("sa");
         dataSource.setPassword("");
         return dataSource;
